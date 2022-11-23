@@ -1,0 +1,85 @@
+﻿<Window x:Class="Bondoc_Graph_Visualization.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bondoc_Graph_Visualization"
+        mc:Ignorable="d"
+        Title="Graph Visualizer" Height="800" Width="1000"
+        ResizeMode="NoResize"     
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="ToggleStyle1" TargetType="{x:Type local:Toggle}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type local:Toggle}">
+                        <Border Name="VerticesToggle" Background="#FFDDDDDD" BorderBrush= "#FF707070" BorderThickness="1.5" Width="80">
+                            <TextBlock Text="Add Vertices" Width="70" HorizontalAlignment="Center"></TextBlock>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="VerticesToggle" Property="Background" Value="#FF504D4D"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="800">
+            </ColumnDefinition>
+            <ColumnDefinition >
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition>
+
+            </RowDefinition>
+        </Grid.RowDefinitions>
+        <Canvas Grid.Column="0" Name="GraphMap" Focusable="True" MouseLeftButtonDown="Add" Background="White"></Canvas>
+        <Border Background="LightGray" Grid.Column="3">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Height="20" HorizontalAlignment="Center" Margin="0,50,0,10">
+                    <local:Toggle x:Name="AddVerticesToggle" Style="{DynamicResource ToggleStyle1}" Width="100" Cursor="Hand"></local:Toggle>
+                </StackPanel>
+                <TextBlock HorizontalAlignment="Center" Text="Edges" Height="20" Margin="0,10,0,0"></TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                    <TextBlock HorizontalAlignment="Center" Text="Weight" Height="20" Margin="20,0,0,0"></TextBlock>
+                    <TextBox Name="InputWeight" Width="50" HorizontalAlignment="Center" Margin="17,0,0,0"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock HorizontalAlignment="Center" Text="Vertex a" Height="20" Margin="20,0,0,0"></TextBlock>
+                    <ComboBox ItemsSource="{Binding ComboBoxStorage}" Name="InputVertexA" Width="50" HorizontalAlignment="Center" Margin="12,0,0,0"></ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,10">
+                    <TextBlock HorizontalAlignment="Center" Text="Vertex b" Height="20" Margin="20,0,0,0"></TextBlock>
+                    <ComboBox ItemsSource="{Binding ComboBoxStorage}" Name="InputVertexB" Width="50" HorizontalAlignment="Center" Margin="11,0,0,0"></ComboBox>
+                </StackPanel>
+                <Button Name="AddEdge" Content="Add Edge" Width="80" Background="#FFDDDDDD" Margin="0,0,0,10" Cursor="Hand" Click="AddEdge_Click"></Button>
+                <TextBlock HorizontalAlignment="Center" Text="Find Shortest Path" Height="20" Margin="0,10,0,0"></TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,5">
+                    <TextBlock HorizontalAlignment="Center" Text="Start" Height="20" Margin="30,0,0,0"></TextBlock>
+                    <ComboBox ItemsSource="{Binding ComboBoxStorage}" Name="InputStart" Width="50" HorizontalAlignment="Center" Margin="20,0,0,0"></ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock HorizontalAlignment="Center" Text="End" Height="20" Margin="35,0,0,0"></TextBlock>
+                    <ComboBox ItemsSource="{Binding ComboBoxStorage}" Name="InputEnd" Width="50" HorizontalAlignment="Center" Margin="19.5,0,0,0"></ComboBox>
+                </StackPanel>
+                <Button Name ="FindShortestPath"  Content="Find" Width="80" Background="#FFDDDDDD" Margin="0,0,0,10" Cursor="Hand" Click="FindShortestPath_Click"></Button>
+                <Button Name ="ClearCanvas"  Content="Clear" Width="80" Cursor="Hand" Click="ClearCanvas_Click"></Button>
+                <Label Content="Notes" Margin="21,10,0,0"></Label>
+                <TextBox  Name="VerticesNote" Height="300" Width="150" Margin="0,5,0,0"></TextBox>
+            </StackPanel>
+
+        </Border>
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Orientation="Horizontal">
+            <Label Content="Vertices : " Foreground="Gray" Margin="10,0,0,0"></Label>
+            <Label Name="VerticesDisplay" Foreground="Gray" Content="0"></Label>
+            <Label Content="Edges : " Foreground="Gray"></Label>
+            <Label Name="EdgesDisplay" Foreground="Gray" Content="0"></Label>
+        </StackPanel>
+    </Grid>
+</Window>
